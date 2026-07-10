@@ -3,4 +3,5 @@ export interface User {
     email: string;
     role: "ADMIN" | "AGENT";
     tenantId: string;
+    createAt: string;
 }
