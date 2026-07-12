@@ -9,14 +9,14 @@ interface Props {
 }
 
 export default function ProtectedRoute({ children }: Props) {
-    const { currentUser, loading } = useAuth();
+    const { firebaseUser, platformUser, loading } = useAuth();
     const router = useRouter();
 
     useEffect(() => {
-        if (!loading && !currentUser) {
+        if (!loading && !firebaseUser) {
             router.replace("/login");
         }
-    }, [currentUser, loading, router]);
+    }, [firebaseUser, loading, router]);
 
     if (loading) {
         return (
@@ -24,7 +24,7 @@ export default function ProtectedRoute({ children }: Props) {
         );
     }
 
-    if (!currentUser) {
+    if (!firebaseUser || !platformUser) {
         return null;
     }
 

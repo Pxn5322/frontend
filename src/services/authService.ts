@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, UserCredential, } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "../firebase/firebase";
 
 export async function signup(email: string, password: string): Promise<UserCredential> {
     return await createUserWithEmailAndPassword(

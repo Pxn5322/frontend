@@ -2,13 +2,22 @@
 
 import DashboardLayout from "@/components/DashboardLayout";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { useAuth } from "@/contexts/AuthContext";
 
-export default function Dashboard() {
+export default function DashboardPage() {
+
+    const { platformUser } = useAuth();
+
     return (
         <ProtectedRoute>
             <DashboardLayout>
-                <h1>Dashboard</h1>
-                <p>Welcome to Enterprise Nexus AI Powered Ticketing System</p>
+                <div className="container mt-5">
+                    <h2>Welcome</h2>
+                    <hr />
+                    <p>Email :{" "}{platformUser?.email}</p>
+                    <p>Role :{" "}{platformUser?.role}</p>
+                    <p>Tenant :{" "}{platformUser?.tenantId}</p>
+                </div>
             </DashboardLayout>
         </ProtectedRoute>
     );
