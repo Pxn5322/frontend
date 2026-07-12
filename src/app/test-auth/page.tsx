@@ -3,7 +3,7 @@
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function TestAuth() {
-    const { currentUser, loading, } = useAuth();
+    const { firebaseUser, loading, } = useAuth();
 
     if (loading) return <h2>Loading...</h2>;
 
@@ -12,7 +12,7 @@ export default function TestAuth() {
             <h2> Current User </h2>
             <hr />
             <pre>
-                {JSON.stringify(currentUser, null, 2)}
+                {JSON.stringify(firebaseUser, null, 2)}
             </pre>
         </div>
     );

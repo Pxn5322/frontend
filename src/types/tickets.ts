@@ -7,4 +7,5 @@ export interface Ticket {
     status: string;
     tenantId: string;
     createdAt: string;
+    updatedAt: string;
 }
