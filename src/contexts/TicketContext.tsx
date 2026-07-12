@@ -4,15 +4,7 @@ import { createContext, useContext, useEffect, useState, ReactNode, } from "reac
 import { Ticket } from "@/types/tickets";
 import * as ticketService from "@/services/ticketService";
 import { useAuth } from "./AuthContext";
-
-interface TicketContextType {
-    tickets: Ticket[];
-    loading: boolean;
-    loadTickets: () => Promise<void>;
-    addTicket: (title: string, rawText: string) => Promise<void>;
-    editTicket: (id: string, data: Partial<Ticket>) => Promise<void>;
-    removeTicket: (id: string) => Promise<void>;
-}
+import { TicketContextType } from "@/types/ticketContext";
 
 const TicketContext = createContext<TicketContextType | null>(null);
 
@@ -32,6 +24,7 @@ export function TicketProvider({ children, }: Props) {
             setTickets(data);
         } catch (error) {
             console.error(error);
+            throw error;
         } finally {
             setLoading(false);
         }
@@ -65,7 +58,7 @@ export function TicketProvider({ children, }: Props) {
     );
 }
 
-export function useTickets() {
+export function useTicketContext() {
     const context = useContext(TicketContext);
 
     if (!context) {

@@ -1,3 +1,4 @@
+import { Ticket } from "@/types/tickets";
 import api from "./api";
 
 export async function getTickets() {
@@ -15,7 +16,7 @@ export async function createTicket(data: { title: string; rawText: string; }) {
     return res.data;
 }
 
-export async function updateTicket(id: string, data: any) {
+export async function updateTicket(id: string, data: Partial<Ticket>) {
     const res = await api.put(`/api/tickets/${id}`, data);
     return res.data;
 }
