@@ -1,0 +1,52 @@
+"use client";
+
+import { useTicketContext } from "@/contexts/TicketContext";
+import { filterByPriority, filterBySearch, filterByStatus } from "../selectors/ticketSelectors";
+import { sortTickets } from "../utils/ticketSort";
+import { paginateTickets } from "../utils/ticketPagination";
+
+export default function useVisibleTickets() {
+    const {
+        tickets,
+        loading,
+        search,
+        statusFilter,
+        priorityFilter,
+        sort,
+        currentPage,
+        pageSize,
+    } = useTicketContext();
+
+    const searchedTickets = filterBySearch(
+        tickets,
+        search
+    );
+
+    const statusTickets = filterByStatus(
+        searchedTickets,
+        statusFilter
+    );
+
+    const priorityTickets = filterByPriority(
+        statusTickets,
+        priorityFilter
+    );
+
+    const sortedTickets = sortTickets(
+        priorityTickets,
+        sort
+    );
+
+    const visibleTickets = paginateTickets(
+        sortedTickets,
+        currentPage,
+        pageSize
+    );
+
+    return {
+        visibleTickets,
+        loading,
+        totalTickets: sortedTickets.length,
+        totalPages: Math.ceil(sortedTickets.length / pageSize),
+    };
+}

@@ -5,7 +5,8 @@ import { Modal, Form, Button, Spinner } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ticketSchema, TicketSchemaForm } from "@/schemas/ticketSchema";
-import { Ticket } from "@/types/tickets";
+import { Ticket } from "../types/tickets";
+
 
 interface Props {
     show: boolean;

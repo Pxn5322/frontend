@@ -3,13 +3,12 @@
 import { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { Ticket } from "@/types/tickets";
+import { Ticket } from "@/features/tickets/types/tickets";
 import PriorityBadge from "./PriorityBadge";
 import StatusBadge from "./StatusBadge";
 import TicketModal from "./TicketModal";
 import DeleteTicketModal from "./DeleteTicketModal";
-import useTicketActions from "@/hooks/useTicketActions";
-import useTickets from "@/hooks/useTickets";
+import useTicketActions from "@/features/tickets/hooks/useTicketActions";
 
 interface Props {
     ticket: Ticket;
@@ -17,7 +16,6 @@ interface Props {
 
 export default function TicketCard({ ticket, }: Props) {
     const { update, remove, } = useTicketActions();
-    const { refresh } = useTickets();
 
     const [showEdit, setShowEdit] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
@@ -26,7 +24,6 @@ export default function TicketCard({ ticket, }: Props) {
         try {
             await remove(ticket.id);
             setShowDelete(false);
-            await refresh();
         } catch {
             toast.error("Delete failed.");
         }

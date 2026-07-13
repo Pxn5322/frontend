@@ -1,5 +1,5 @@
-import { Ticket } from "@/types/tickets";
-import api from "./api";
+import { Ticket } from "@/features/tickets/types/tickets";
+import api from "../../../services/api";
 
 export async function getTickets() {
     const res = await api.get("/api/tickets");

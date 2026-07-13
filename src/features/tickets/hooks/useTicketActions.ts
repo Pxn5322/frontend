@@ -8,14 +8,12 @@ export default function useTicketActions() {
         addTicket,
         editTicket,
         removeTicket,
-        loadTickets,
     } = useTicketContext();
 
     async function create(title: string, rawText: string) {
         try {
             await addTicket(title, rawText);
             toast.success("Ticket created.");
-            await loadTickets();
         } catch (error: any) {
             toast.error(error.response?.data?.message ?? "Unable to create ticket.");
         }
@@ -25,7 +23,6 @@ export default function useTicketActions() {
         try {
             await editTicket(id, { title, rawText });
             toast.success("Ticket updated.");
-            await loadTickets();
         } catch (error: any) {
             toast.error(error.response?.data?.message ?? "Unable to update ticket.");
         }
@@ -35,7 +32,6 @@ export default function useTicketActions() {
         try {
             await removeTicket(id);
             toast.success("Ticket deleted.");
-            await loadTickets();
         }
         catch (error: any) {
             toast.error(error.response?.data?.message ?? "Unable to delete ticket.");
