@@ -2,9 +2,9 @@ export interface Ticket {
     id: string;
     title: string;
     rawText: string;
-    priority: string;
-    sentiment: string;
-    status: string;
+    status: | "OPEN" | "IN_PROGRESS" | "RESOLVED";
+    priority: | "PENDING" | "LOW" | "MEDIUM" | "HIGH";
+    sentiment: | "POSITIVE" | "NEUTRAL" | "NEGATIVE" | "ANGRY";
     tenantId: string;
     createdAt: string;
     updatedAt: string;

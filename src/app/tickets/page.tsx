@@ -20,17 +20,20 @@ export default function TicketPage() {
         <ProtectedRoute>
             <DashboardLayout>
                 <Container className="py-4">
-                    <Row >
-                        <Button onClick={() => setShowCreate(true)}>
-                            + New Ticket
-                        </Button>
+                    <Row className="page-title text-center justify-content-center">
+                        <Col lg={8}>
+                            <h1 className="fw-bold display-5">Tickets</h1>
+                            <Button size="lg" className="fw-bold px-4 py-2 mt-2 shadow-sm" onClick={() => setShowCreate(true)}>
+                                + New Ticket
+                            </Button>
+                        </Col>
                     </Row>
                     <Row>
-                        <Row className="mb-4">
-                            <Col lg={3}><SearchBar /></Col>
-                            <Col lg={3}><StatusFilter /></Col>
-                            <Col lg={3}><PriorityFilter /></Col>
-                            <Col lg={3}><SortDropdown /></Col>
+                        <Row className="my-4">
+                            <Col className="my-1" lg={3}><SearchBar /></Col>
+                            <Col className="my-1" lg={3}><StatusFilter /></Col>
+                            <Col className="my-1" lg={3}><PriorityFilter /></Col>
+                            <Col className="my-1" lg={3}><SortDropdown /></Col>
                         </Row>
                         <TicketList />
                     </Row>

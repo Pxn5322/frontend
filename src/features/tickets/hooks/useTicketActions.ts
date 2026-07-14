@@ -2,6 +2,7 @@
 
 import toast from "react-hot-toast";
 import { useTicketContext } from "@/contexts/TicketContext";
+import { Ticket } from "../types/tickets";
 
 export default function useTicketActions() {
     const {
@@ -19,9 +20,9 @@ export default function useTicketActions() {
         }
     }
 
-    async function update(id: string, title: string, rawText: string) {
+    async function update(id: string, data: Partial<Ticket>) {
         try {
-            await editTicket(id, { title, rawText });
+            await editTicket(id, data);
             toast.success("Ticket updated.");
         } catch (error: any) {
             toast.error(error.response?.data?.message ?? "Unable to update ticket.");

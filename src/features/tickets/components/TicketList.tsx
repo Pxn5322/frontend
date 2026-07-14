@@ -30,10 +30,10 @@ export default function TicketList() {
 
     return (
         <>
+            <PaginationBar totalTickets={totalTickets} />
             {visibleTickets.map(ticket => (
                 <TicketCard key={ticket.id} ticket={ticket} />
             ))}
-            <PaginationBar totalTickets={totalTickets} />
         </>
     );
 }

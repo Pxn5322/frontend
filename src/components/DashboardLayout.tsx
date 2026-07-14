@@ -21,17 +21,20 @@ export default function DashboardLayout({ children, }: Props) {
 
     return (
         <>
-            <Navbar bg="dark" variant="dark">
+            <Navbar expand="lg" className="shadow-sm py-3">
                 <Container>
                     <Navbar.Brand>Enterprise Nexus</Navbar.Brand>
-                    <Nav className="me-auto">
-                        <Link href="/dashboard" className="nav-link">Dashboard</Link>
-                        <Link href="/tickets" className="nav-link">Tickets</Link>
-                        {platformUser?.role === "ADMIN" && (
-                            <Link href="/admin" className="nav-link">Admin</Link>
-                        )}
-                    </Nav>
-                    <Button variant="outline-light" onClick={handleLogout}>Logout</Button>
+                    <Navbar.Toggle aria-controls="dashboard-navbar-nav" />
+                    <Navbar.Collapse id="dashboard-navbar-nav">
+                        <Nav className="me-auto">
+                            <Link href="/dashboard" className="nav-link">Dashboard</Link>
+                            <Link href="/tickets" className="nav-link">Tickets</Link>
+                            {platformUser?.role === "ADMIN" && (
+                                <Link href="/admin" className="nav-link">Admin</Link>
+                            )}
+                        </Nav>
+                        <Button variant="outline-light" onClick={handleLogout}>Logout</Button>
+                    </Navbar.Collapse>
                 </Container>
             </Navbar>
             <Container className="mt-4">

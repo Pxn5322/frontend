@@ -10,6 +10,19 @@ export const ticketSchema = z.object({
         .string()
         .min(10, "Description must be at least 10 characters")
         .max(5000),
+
+    status: z.enum([
+        "OPEN",
+        "IN_PROGRESS",
+        "RESOLVED",
+    ]),
+
+    priority: z.enum([
+        "PENDING",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+    ])
 });
 
 export type TicketSchemaForm = z.infer<typeof ticketSchema>;

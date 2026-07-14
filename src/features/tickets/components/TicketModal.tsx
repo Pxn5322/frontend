@@ -6,13 +6,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ticketSchema, TicketSchemaForm } from "@/schemas/ticketSchema";
 import { Ticket } from "../types/tickets";
+import { PRIORITY, STATUS } from "@/constants/ticket";
 
 
 interface Props {
     show: boolean;
     ticket: Ticket | null;
     onClose: () => void;
-    onSave: (id: string, title: string, rawText: string) => Promise<void>;
+    onSave: (id: string, data: Partial<Ticket>) => Promise<void>;
 }
 
 export default function TicketModal({ show, ticket, onClose, onSave, }: Props) {
@@ -23,6 +24,8 @@ export default function TicketModal({ show, ticket, onClose, onSave, }: Props) {
             reset({
                 title: ticket.title,
                 rawText: ticket.rawText,
+                status: ticket.status,
+                priority: ticket.priority
             });
         }
     }, [ticket, reset]);
@@ -30,7 +33,12 @@ export default function TicketModal({ show, ticket, onClose, onSave, }: Props) {
     async function submit(data: TicketSchemaForm) {
         if (!ticket) return;
 
-        await onSave(ticket.id, data.title, data.rawText);
+        await onSave(ticket.id, {
+            title: data.title,
+            rawText: data.rawText,
+            status: data.status,
+            priority: data.priority,
+        });
         onClose();
     }
 
@@ -50,6 +58,27 @@ export default function TicketModal({ show, ticket, onClose, onSave, }: Props) {
                         <Form.Label>Description</Form.Label>
                         <Form.Control as="textarea" rows={5} {...register("rawText")} />
                         <small className="text-danger">{errors.rawText?.message}</small>
+                    </Form.Group>
+                    <Form.Group className="mt-3">
+                        <Form.Label>Status</Form.Label>
+                        <Form.Select  {...register("status")}>
+                            {STATUS.filter(s => s !== "").map(status => (
+                                <option key={status} value={status}>
+                                    {status}
+                                </option>
+                            ))}
+                        </Form.Select>
+                    </Form.Group>
+
+                    <Form.Group className="mt-3">
+                        <Form.Label>Priority</Form.Label>
+                        <Form.Select {...register("priority")}>
+                            {PRIORITY.filter(p => p !== "").map(priority => (
+                                <option key={priority} value={priority}>
+                                    {priority}
+                                </option>
+                            ))}
+                        </Form.Select>
                     </Form.Group>
                     <div className="mt-4 d-flex justify-content-end">
                         <Button variant="secondary" className="me-2" onClick={onClose}>

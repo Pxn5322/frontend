@@ -10,6 +10,7 @@ import TicketModal from "./TicketModal";
 import DeleteTicketModal from "./DeleteTicketModal";
 import useTicketActions from "@/features/tickets/hooks/useTicketActions";
 import TicketDetailModal from "./TicketDetailModal";
+import Link from "next/link";
 
 interface Props {
     ticket: Ticket;
@@ -37,7 +38,11 @@ export default function TicketCard({ ticket, }: Props) {
                 <Card.Body>
                     <div className="d-flex justify-content-between">
                         <div>
-                            <h5>{ticket.title}</h5>
+                            <h5>
+                                <Link href={`/tickets/${ticket.id}`} className="text-decoration-none">
+                                    {ticket.title}
+                                </Link>
+                            </h5>
                         </div>
                         <div>
                             <PriorityBadge priority={ticket.priority} />
