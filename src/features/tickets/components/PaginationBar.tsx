@@ -21,18 +21,23 @@ export default function PaginationBar({ totalTickets }: Props) {
     }
 
     return (
-        <Pagination className="justify-content-center mt-4">
-            <Pagination.Prev disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)} />
-            {Array.from({ length: totalPages }).map((_, index) => {
-                const page = index + 1;
+        <>
+            <div className="text-center text-muted mb-2">
+                Showing{" "}{Math.min(currentPage * pageSize, totalTickets)}{" "}of{" "}{totalTickets} tickets
+            </div>
+            <Pagination className="justify-content-center mt-4">
+                <Pagination.Prev disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)} />
+                {Array.from({ length: totalPages }).map((_, index) => {
+                    const page = index + 1;
 
-                return (
-                    <Pagination.Item key={page} active={page === currentPage} onClick={() => setCurrentPage(page)}>
-                        {page}
-                    </Pagination.Item>
-                );
-            })}
-            <Pagination.Next disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)} />
-        </Pagination>
+                    return (
+                        <Pagination.Item key={page} active={page === currentPage} onClick={() => setCurrentPage(page)}>
+                            {page}
+                        </Pagination.Item>
+                    );
+                })}
+                <Pagination.Next disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)} />
+            </Pagination>
+        </>
     );
 }

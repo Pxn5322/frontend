@@ -4,6 +4,7 @@ import { useTicketContext } from "@/contexts/TicketContext";
 import { filterByPriority, filterBySearch, filterByStatus } from "../selectors/ticketSelectors";
 import { sortTickets } from "../utils/ticketSort";
 import { paginateTickets } from "../utils/ticketPagination";
+import { useEffect } from "react";
 
 export default function useVisibleTickets() {
     const {
@@ -15,7 +16,12 @@ export default function useVisibleTickets() {
         sort,
         currentPage,
         pageSize,
+        setCurrentPage,
     } = useTicketContext();
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [search, statusFilter, priorityFilter, sort,]);
 
     const searchedTickets = filterBySearch(
         tickets,

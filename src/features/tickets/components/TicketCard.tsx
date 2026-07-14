@@ -9,6 +9,7 @@ import StatusBadge from "./StatusBadge";
 import TicketModal from "./TicketModal";
 import DeleteTicketModal from "./DeleteTicketModal";
 import useTicketActions from "@/features/tickets/hooks/useTicketActions";
+import TicketDetailModal from "./TicketDetailModal";
 
 interface Props {
     ticket: Ticket;
@@ -19,6 +20,7 @@ export default function TicketCard({ ticket, }: Props) {
 
     const [showEdit, setShowEdit] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
+    const [showDetail, setShowDetail] = useState(false);
 
     async function handleDelete() {
         try {
@@ -41,18 +43,25 @@ export default function TicketCard({ ticket, }: Props) {
                             <PriorityBadge priority={ticket.priority} />
                         </div>
                     </div>
-                    <p className="mt-3">{ticket.rawText}</p>
+                    <p className="mt-3">
+                        {ticket.rawText.length > 120
+                            ? ticket.rawText.substring(0, 120) + "..."
+                            : ticket.rawText
+                        }
+                    </p>
                     <div className="d-flex justify-content-between align-items-center">
                         <StatusBadge status={ticket.status} />
                         <small>{new Date(ticket.createdAt).toLocaleString()}</small>
                     </div>
                     <div className="mt-3">
+                        <Button variant="outline-secondary" size="sm" className="me-2" onClick={() => setShowDetail(true)}>View</Button>
                         <Button variant="outline-primary" size="sm" className="me-2" onClick={() => setShowEdit(true)}>Edit</Button>
                         <Button variant="outline-danger" size="sm" onClick={() => setShowDelete(true)}>Delete</Button>
                     </div>
                 </Card.Body>
             </Card>
 
+            <TicketDetailModal show={showDetail} ticket={ticket} onClose={() => setShowDetail(false)} />
             <TicketModal show={showEdit} ticket={ticket} onClose={() => setShowEdit(false)} onSave={update} />
             <DeleteTicketModal show={showDelete} title={ticket.title} onClose={() => setShowDelete(false)} onDelete={handleDelete} />
         </>
