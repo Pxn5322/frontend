@@ -12,6 +12,7 @@ export default function StatusFilter() {
 
     return (
         <Form.Select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+            <option value="">All Status</option>
             {STATUS.map(status => (
                 <option key={status} value={status}>{status}</option>
             ))}

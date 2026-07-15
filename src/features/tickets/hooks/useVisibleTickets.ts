@@ -50,6 +50,9 @@ export default function useVisibleTickets() {
     );
 
     return {
+        currentPage,
+        pageSize,
+        setCurrentPage,
         visibleTickets,
         loading,
         totalTickets: sortedTickets.length,

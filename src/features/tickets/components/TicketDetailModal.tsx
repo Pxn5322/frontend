@@ -2,6 +2,7 @@
 
 import { Modal, Badge, Row, Col } from "react-bootstrap";
 import { Ticket } from "../types/tickets";
+import AIAnalysisCard from "./AIAnalysisCard";
 
 interface Props {
     show: boolean;
@@ -57,6 +58,8 @@ export default function TicketDetailModal({ show, ticket, onClose }: Props) {
                 <hr />
                 <h5>Description</h5>
                 <p style={{ whiteSpace: "pre-wrap" }}>{ticket.rawText}</p>
+
+                <AIAnalysisCard analyzed={false} />
             </Modal.Body>
         </Modal>
     );

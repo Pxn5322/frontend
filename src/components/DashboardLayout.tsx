@@ -30,7 +30,10 @@ export default function DashboardLayout({ children, }: Props) {
                             <Link href="/dashboard" className="nav-link">Dashboard</Link>
                             <Link href="/tickets" className="nav-link">Tickets</Link>
                             {platformUser?.role === "ADMIN" && (
-                                <Link href="/admin" className="nav-link">Admin</Link>
+                                <>
+                                    <Link href="/knowledge" className="nav-link">Knowledge Base</Link>
+                                    <Link href="/admin" className="nav-link">Admin</Link>
+                                </>
                             )}
                         </Nav>
                         <Button variant="outline-light" onClick={handleLogout}>Logout</Button>

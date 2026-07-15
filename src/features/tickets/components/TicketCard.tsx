@@ -7,10 +7,10 @@ import { Ticket } from "@/features/tickets/types/tickets";
 import PriorityBadge from "./PriorityBadge";
 import StatusBadge from "./StatusBadge";
 import TicketModal from "./TicketModal";
-import DeleteTicketModal from "./DeleteTicketModal";
 import useTicketActions from "@/features/tickets/hooks/useTicketActions";
 import TicketDetailModal from "./TicketDetailModal";
 import Link from "next/link";
+import DeleteConfirmModal from "@/components/ui/DeleteConfirmModal";
 
 interface Props {
     ticket: Ticket;
@@ -68,7 +68,7 @@ export default function TicketCard({ ticket, }: Props) {
 
             <TicketDetailModal show={showDetail} ticket={ticket} onClose={() => setShowDetail(false)} />
             <TicketModal show={showEdit} ticket={ticket} onClose={() => setShowEdit(false)} onSave={update} />
-            <DeleteTicketModal show={showDelete} title={ticket.title} onClose={() => setShowDelete(false)} onDelete={handleDelete} />
+            <DeleteConfirmModal show={showDelete} title={ticket.title} onClose={() => setShowDelete(false)} onConfirm={handleDelete} />
         </>
     );
 }

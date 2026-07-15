@@ -15,14 +15,14 @@ export const ticketSchema = z.object({
         "OPEN",
         "IN_PROGRESS",
         "RESOLVED",
-    ]),
+    ]).optional(),
 
     priority: z.enum([
         "PENDING",
         "LOW",
         "MEDIUM",
         "HIGH",
-    ])
+    ]).optional()
 });
 
 export type TicketSchemaForm = z.infer<typeof ticketSchema>;

@@ -1,12 +1,16 @@
 "use client";
 
-import { Alert, Spinner } from "react-bootstrap";
 import TicketCard from "./TicketCard";
 import useVisibleTickets from "../hooks/useVisibleTickets";
-import PaginationBar from "./PaginationBar";
+import PaginationBar from "../../../components/ui/PaginationBar";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import EmptyState from "@/components/ui/EmptyState";
 
 export default function TicketList() {
     const {
+        currentPage,
+        pageSize,
+        setCurrentPage,
         visibleTickets,
         loading,
         totalTickets,
@@ -14,23 +18,19 @@ export default function TicketList() {
 
     if (loading) {
         return (
-            <div className="text-center mt-5">
-                <Spinner />
-            </div>
+            <LoadingSpinner />
         );
     }
 
     if (visibleTickets.length === 0) {
         return (
-            <Alert variant="secondary">
-                No tickets found.
-            </Alert>
+            <EmptyState message="No tickets found." />
         );
     }
 
     return (
         <>
-            <PaginationBar totalTickets={totalTickets} />
+            <PaginationBar currentPage={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage} total={totalTickets} />
             {visibleTickets.map(ticket => (
                 <TicketCard key={ticket.id} ticket={ticket} />
             ))}

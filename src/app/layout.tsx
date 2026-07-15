@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { Toaster } from "react-hot-toast";
 import { TicketProvider } from "@/contexts/TicketContext";
+import { KnowledgeProvider } from "@/contexts/KnowledgeContext";
 
 export const metadata: Metadata = {
   title: "Enterprise Nexus",
@@ -16,8 +17,10 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
       <body>
         <AuthProvider>
           <TicketProvider>
-            {children}
-            <Toaster position="top-right" />
+            <KnowledgeProvider>
+              {children}
+              <Toaster position="top-right" />
+            </KnowledgeProvider>
           </TicketProvider>
         </AuthProvider>
       </body>

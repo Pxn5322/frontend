@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card, Spinner, Badge, Button, } from "react-bootstrap";
+import { Card, Badge, Button, } from "react-bootstrap";
 import { Ticket } from "../types/tickets";
 import * as ticketService from "../services/ticketService";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 interface Props {
     ticketId: string;
@@ -33,9 +34,7 @@ export default function TicketDetails({ ticketId, }: Props) {
 
     if (loading) {
         return (
-            <div className="text-center mt-5">
-                <Spinner />
-            </div>
+            <LoadingSpinner />
         );
     }
 
