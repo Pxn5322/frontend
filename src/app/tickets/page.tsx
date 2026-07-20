@@ -19,7 +19,7 @@ export default function TicketPage() {
     return (
         <ProtectedRoute>
             <DashboardLayout>
-                <Container className="py-4">
+                <Container className="py-4" fluid>
                     <Row className="page-title text-center justify-content-center">
                         <Col lg={8}>
                             <h1 className="fw-bold display-5">Tickets</h1>

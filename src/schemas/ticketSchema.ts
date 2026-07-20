@@ -18,10 +18,10 @@ export const ticketSchema = z.object({
     ]).optional(),
 
     priority: z.enum([
-        "PENDING",
         "LOW",
         "MEDIUM",
         "HIGH",
+        "CRITICAL",
     ]).optional()
 });
 

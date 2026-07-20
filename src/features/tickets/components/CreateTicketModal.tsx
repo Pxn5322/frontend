@@ -6,12 +6,12 @@ import TicketForm from "./TicketForm";
 interface Props {
     show: boolean;
     onClose: () => void;
-    onSubmit: (title: string, rawText: string) => Promise<void>;
+    onSubmit: (title: string, rawText: string, attachmentUrl?: string) => Promise<void>;
 }
 
 export default function CreateTicketModal({ show, onClose, onSubmit, }: Props) {
-    async function handleCreate(title: string, rawText: string) {
-        await onSubmit(title, rawText);
+    async function handleCreate(title: string, rawText: string, attachmentUrl?: string) {
+        await onSubmit(title, rawText, attachmentUrl);
         onClose();
     }
 

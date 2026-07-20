@@ -7,14 +7,17 @@ interface Props {
 }
 
 export default function PriorityBadge({ priority, }: Props) {
-    let bg: | "danger" | "warning" | "success" | "secondary" = "secondary";
+    let bg: | "danger" | "warning" | "primary" | "success" | "secondary" = "secondary";
 
     switch (priority) {
-        case "HIGH":
+        case "CRITICAL":
             bg = "danger";
             break;
-        case "MEDIUM":
+        case "HIGH":
             bg = "warning";
+            break;
+        case "MEDIUM":
+            bg = "primary";
             break;
         case "LOW":
             bg = "success";

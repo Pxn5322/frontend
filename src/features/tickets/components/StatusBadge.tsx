@@ -21,8 +21,8 @@ export default function StatusBadge({ status, }: Props) {
     }
 
     return (
-        <Badge bg={bg}>
-            {status}
+        <Badge bg={bg} className="px-2.5 py-1.5 fw-semibold text-uppercase">
+            {status.replace('_', ' ')}
         </Badge>
     );
 

@@ -5,8 +5,8 @@ export const STATUS = [
 ];
 
 export const PRIORITY = [
+    "CRITICAL",
     "HIGH",
     "MEDIUM",
-    "LOW",
-    "PENDING"
+    "LOW"
 ];

@@ -4,6 +4,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import DashboardLayout from "@/components/DashboardLayout";
 import TicketDetails from "@/features/tickets/components/TicketDetails";
 import { useParams } from "next/navigation";
+import { Container } from "react-bootstrap";
 
 export default function TicketDetailsPage() {
     const params = useParams();
@@ -13,7 +14,9 @@ export default function TicketDetailsPage() {
     return (
         <ProtectedRoute>
             <DashboardLayout>
-                <TicketDetails ticketId={ticketId} />
+                <Container className="py-4" fluid>
+                    <TicketDetails ticketId={ticketId} />
+                </Container>
             </DashboardLayout>
         </ProtectedRoute>
     );

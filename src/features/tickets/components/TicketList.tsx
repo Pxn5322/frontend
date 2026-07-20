@@ -31,7 +31,7 @@ export default function TicketList() {
     return (
         <>
             <PaginationBar currentPage={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage} total={totalTickets} />
-            {visibleTickets.map(ticket => (
+            {visibleTickets?.map(ticket => (
                 <TicketCard key={ticket.id} ticket={ticket} />
             ))}
         </>

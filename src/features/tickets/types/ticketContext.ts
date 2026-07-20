@@ -15,7 +15,7 @@ export interface TicketContextType {
     setSort(sort: "newest" | "oldest"): void;
     setCurrentPage(page: number): void;
     loadTickets: () => Promise<void>;
-    addTicket: (title: string, rawText: string) => Promise<void>;
-    editTicket: (id: string, data: Partial<Ticket>) => Promise<void>;
-    removeTicket: (id: string) => Promise<void>;
+    addTicket: (title: string, rawText: string, attachmentUrl?: string) => Promise<void>;
+    editTicket: (id: string, data: Partial<Ticket>, newFile?: File | null) => Promise<void>;
+    removeTicket: (id: string, attachmentUrl?: string) => Promise<void>;
 }

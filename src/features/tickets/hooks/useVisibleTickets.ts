@@ -1,6 +1,6 @@
 "use client";
 
-import { useTicketContext } from "@/contexts/TicketContext";
+import { useTicketContext } from "@/features/tickets/context/TicketContext";
 import { filterByPriority, filterBySearch, filterByStatus } from "../selectors/ticketSelectors";
 import { sortTickets } from "../utils/ticketSort";
 import { paginateTickets } from "../utils/ticketPagination";

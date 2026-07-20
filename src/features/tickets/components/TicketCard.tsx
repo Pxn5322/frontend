@@ -2,14 +2,12 @@
 
 import { useState } from "react";
 import { Card, Button } from "react-bootstrap";
-import toast from "react-hot-toast";
 import { Ticket } from "@/features/tickets/types/tickets";
 import PriorityBadge from "./PriorityBadge";
 import StatusBadge from "./StatusBadge";
 import TicketModal from "./TicketModal";
 import useTicketActions from "@/features/tickets/hooks/useTicketActions";
 import TicketDetailModal from "./TicketDetailModal";
-import Link from "next/link";
 import DeleteConfirmModal from "@/components/ui/DeleteConfirmModal";
 
 interface Props {
@@ -25,10 +23,10 @@ export default function TicketCard({ ticket, }: Props) {
 
     async function handleDelete() {
         try {
-            await remove(ticket.id);
+            await remove(ticket.id, ticket.attachmentUrl);
             setShowDelete(false);
         } catch {
-            toast.error("Delete failed.");
+            console.error("Delete failed.");
         }
     }
 
@@ -38,11 +36,7 @@ export default function TicketCard({ ticket, }: Props) {
                 <Card.Body>
                     <div className="d-flex justify-content-between">
                         <div>
-                            <h5>
-                                <Link href={`/tickets/${ticket.id}`} className="text-decoration-none">
-                                    {ticket.title}
-                                </Link>
-                            </h5>
+                            <h5>{ticket.title}</h5>
                         </div>
                         <div>
                             <PriorityBadge priority={ticket.priority} />

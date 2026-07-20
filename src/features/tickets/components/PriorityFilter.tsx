@@ -1,7 +1,7 @@
 "use client";
 
 import Form from "react-bootstrap/Form";
-import { useTicketContext } from "@/contexts/TicketContext";
+import { useTicketContext } from "@/features/tickets/context/TicketContext";
 import { PRIORITY } from "@/constants/ticket";
 
 export default function PriorityFilter() {
@@ -12,7 +12,7 @@ export default function PriorityFilter() {
 
     return (
         <Form.Select value={priorityFilter} onChange={(e) => setPriorityFilter(e.target.value)}>
-            <option value="">All Priority</option>
+            <option value="">ALL PRIORITY</option>
             {PRIORITY.map(priority => (
                 <option key={priority} value={priority}>{priority}</option>
             ))}

@@ -11,7 +11,7 @@ export async function getTicket(id: string) {
     return res.data;
 }
 
-export async function createTicket(data: { title: string; rawText: string; }) {
+export async function createTicket(data: { title: string; rawText: string; attachmentUrl?: string; }) {
     const res = await api.post("/api/tickets", data);
     return res.data;
 }

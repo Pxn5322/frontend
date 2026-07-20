@@ -1,7 +1,7 @@
 "use client";
 
 import Form from "react-bootstrap/Form";
-import { useTicketContext } from "@/contexts/TicketContext";
+import { useTicketContext } from "@/features/tickets/context/TicketContext";
 
 export default function SearchBar() {
     const {

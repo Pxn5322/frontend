@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import { Modal, Form, Button, Spinner } from "react-bootstrap";
+import { ChangeEvent, useEffect, useState } from "react";
+import { Modal, Form, Button, Spinner, Image } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ticketSchema, TicketSchemaForm } from "@/schemas/ticketSchema";
@@ -13,11 +13,12 @@ interface Props {
     show: boolean;
     ticket: Ticket | null;
     onClose: () => void;
-    onSave: (id: string, data: Partial<Ticket>) => Promise<void>;
+    onSave: (id: string, data: Partial<Ticket>, newFile?: File | null) => Promise<void>;
 }
 
 export default function TicketModal({ show, ticket, onClose, onSave, }: Props) {
     const { register, handleSubmit, reset, formState: { errors, isSubmitting, }, } = useForm<TicketSchemaForm>({ resolver: zodResolver(ticketSchema), });
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     useEffect(() => {
         if (ticket) {
@@ -31,16 +32,23 @@ export default function TicketModal({ show, ticket, onClose, onSave, }: Props) {
     }, [ticket, reset]);
 
     async function submit(data: TicketSchemaForm) {
-        if (!ticket) return;
+        try {
+            if (!ticket) return;
 
-        await onSave(ticket.id, {
-            title: data.title,
-            rawText: data.rawText,
-            status: data.status,
-            priority: data.priority,
-        });
-        onClose();
+            await onSave(ticket.id, { ...data, attachmentUrl: ticket.attachmentUrl }, selectedFile);
+            onClose();
+        } catch (error) {
+            console.error(error);
+        } finally {
+            reset();
+        }
     }
+
+    const cleanUrl = ticket?.attachmentUrl
+        ? decodeURIComponent(ticket.attachmentUrl).split("?")[0].toLowerCase()
+        : "";
+
+    const isImage = /\.(png|jpg|jpeg|gif|webp)$/i.test(cleanUrl);
 
     return (
         <Modal show={show} onHide={onClose} centered>
@@ -80,6 +88,27 @@ export default function TicketModal({ show, ticket, onClose, onSave, }: Props) {
                             ))}
                         </Form.Select>
                     </Form.Group>
+
+                    {ticket?.attachmentUrl &&
+                        <>
+                            <h6>Current Attachment</h6>
+                            {isImage
+                                ? <Image alt="ticket-attachment" src={ticket.attachmentUrl} fluid rounded thumbnail className="mb-3" style={{ maxHeight: 250, objectFit: "contain", }} />
+                                : <Button as="a" href={ticket.attachmentUrl} target="_blank" variant="outline-secondary" className="mb-3">
+                                    Open Attachment
+                                </Button>
+                            }
+                        </>
+                    }
+                    <Form.Group className="mb-4">
+                        <Form.Label>Replace Attachment</Form.Label>
+                        <Form.Control type="file" accept=".jpg,.jpeg,.png,.pdf"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                setSelectedFile(e.target.files?.[0] ?? null);
+                            }}
+                        />
+                    </Form.Group>
+
                     <div className="mt-4 d-flex justify-content-end">
                         <Button variant="secondary" className="me-2" onClick={onClose}>
                             Cancel

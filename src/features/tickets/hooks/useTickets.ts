@@ -1,5 +1,5 @@
 "use client";
-import { useTicketContext } from "@/contexts/TicketContext";
+import { useTicketContext } from "@/features/tickets/context/TicketContext";
 
 export default function useTickets() {
     const {

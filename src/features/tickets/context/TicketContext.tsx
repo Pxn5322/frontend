@@ -3,9 +3,10 @@
 import { createContext, useContext, useEffect, ReactNode, useReducer, } from "react";
 import { Ticket } from "@/features/tickets/types/tickets";
 import * as ticketService from "@/features/tickets/services/ticketService";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../../../contexts/AuthContext";
 import { TicketContextType } from "@/features/tickets/types/ticketContext";
 import { initialTicketState, ticketReducer } from "@/features/tickets/reducers/ticketReducer";
+import { deleteTicketAttachment, uploadTicketAttachment } from "../services/storageService";
 
 const TicketContext = createContext<TicketContextType | null>(null);
 
@@ -38,17 +39,41 @@ export function TicketProvider({ children, }: Props) {
         }
     }, [authLoading, firebaseUser]);
 
-    async function addTicket(title: string, rawText: string) {
-        const ticket = await ticketService.createTicket({ title, rawText, });
+    async function addTicket(title: string, rawText: string, attachmentUrl?: string) {
+        const ticket = await ticketService.createTicket({ title, rawText, attachmentUrl, });
         dispatch({ type: "ADD_TICKET", payload: ticket, });
     }
 
-    async function editTicket(id: string, data: Partial<Ticket>) {
-        const updated = await ticketService.updateTicket(id, data);
-        dispatch({ type: "UPDATE_TICKET", payload: updated, });
+    async function editTicket(id: string, data: Partial<Ticket>, newFile?: File | null) {
+        let attachmentUrl = data.attachmentUrl;
+
+        try {
+            if (newFile) {
+                attachmentUrl = await uploadTicketAttachment(newFile);
+            }
+
+            const updated = await ticketService.updateTicket(id, { ...data, attachmentUrl });
+
+            if (newFile && data.attachmentUrl) {
+                await deleteTicketAttachment(data.attachmentUrl);
+            }
+
+            dispatch({ type: "UPDATE_TICKET", payload: updated, });
+        }
+        catch (error) {
+            if (newFile && attachmentUrl && attachmentUrl !== data.attachmentUrl) {
+                await deleteTicketAttachment(attachmentUrl);
+            }
+
+            throw error;
+        }
     }
 
-    async function removeTicket(id: string) {
+    async function removeTicket(id: string, attachmentUrl?: string) {
+        if (attachmentUrl) {
+            await deleteTicketAttachment(attachmentUrl);
+        }
+
         await ticketService.deleteTicket(id);
         dispatch({ type: "DELETE_TICKET", payload: id, });
     }
