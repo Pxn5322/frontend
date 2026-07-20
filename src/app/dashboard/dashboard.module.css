@@ -1,0 +1,61 @@
+.glassCard {
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    color: #f8fafc !important;
+}
+
+.glassCard:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.iconContainer {
+    padding: 0.75rem;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.listItem {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #e2e8f0 !important;
+    padding: 1rem 1.25rem !important;
+    transition: background 0.2s ease;
+}
+
+.listItem:hover {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.ticketLink {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.ticketLink:hover {
+    color: #60a5fa;
+}
+
+.actionBtn {
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 600 !important;
+    border: none !important;
+    transition: all 0.2s ease !important;
+}
+
+.actionBtnPrimary {
+    composes: actionBtn;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+}
+
+.actionBtnSuccess {
+    composes: actionBtn;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+}

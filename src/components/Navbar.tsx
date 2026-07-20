@@ -7,7 +7,7 @@ import { useAuth } from "@/contexts/AuthContext";
 
 export default function Navbar() {
     const router = useRouter();
-    const { currentUser } = useAuth();
+    const { platformUser } = useAuth();
 
     async function handleLogout() {
         await logout();
@@ -18,7 +18,7 @@ export default function Navbar() {
         <div className="d-flex justify-content-between align-items-center border-bottom p-3">
             <h4>Dashboard</h4>
             <div>
-                <span className="me-3">{currentUser?.email}</span>
+                <span className="me-3">{platformUser?.email}</span>
                 <Button onClick={handleLogout}>Logout</Button>
             </div>
         </div>

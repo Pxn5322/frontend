@@ -1,40 +1,37 @@
 "use client";
 
-import DashboardLayout from "@/components/DashboardLayout";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import { useAuth } from "@/contexts/AuthContext";
-import DashboardStats from "@/features/dashboard/components/DashboardStats";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import DashboardLayout from "@/components/DashboardLayout";
+import Spinner from "react-bootstrap/Spinner";
+import useDashboard from "@/features/dashboard/hooks/useDashboard";
+import DashboardGrid from "@/features/dashboard/components/DashboardGrid";
+import RecentTickets from "@/features/dashboard/components/RecentTickets";
+import QuickActions from "@/features/dashboard/components/QuickActions";
+import { Container } from "react-bootstrap";
 
 export default function DashboardPage() {
-    const { platformUser } = useAuth();
+    const {
+        dashboard,
+        loading,
+    } = useDashboard();
 
     return (
         <ProtectedRoute>
             <DashboardLayout>
-                <Container className="py-4">
-                    <h2 className="mb-4">Welcome back</h2>
-                    <DashboardStats />
-                    <Card className="shadow-sm mt-4">
-                        <Card.Body>
-                            <Card.Title>Account Information</Card.Title>
-                            <hr />
-                            <Row>
-                                <Col md={4}>
-                                    <strong>Email</strong>
-                                    <p>{platformUser?.email}</p>
-                                </Col>
-                                <Col md={4}>
-                                    <strong>Role</strong>
-                                    <p>{platformUser?.role}</p>
-                                </Col>
-                                <Col md={4}>
-                                    <strong>Tenant</strong>
-                                    <p>{platformUser?.tenantId}</p>
-                                </Col>
-                            </Row>
-                        </Card.Body>
-                    </Card>
+                <Container className="py-4" fluid>
+                    <h2 className="mb-4">Dashboard</h2>
+                    {loading && (
+                        <div className="text-center">
+                            <Spinner />
+                        </div>
+                    )}
+                    {!loading && dashboard && (
+                        <>
+                            <DashboardGrid dashboard={dashboard} />
+                            <RecentTickets tickets={dashboard.recentTickets} />
+                            <QuickActions />
+                        </>
+                    )}
                 </Container>
             </DashboardLayout>
         </ProtectedRoute>
