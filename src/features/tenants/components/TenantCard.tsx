@@ -6,10 +6,9 @@ import { Tenant } from "../types/tenant";
 interface Props {
     tenant: Tenant;
     onEdit: () => void;
-    onDelete: () => void;
 }
 
-export default function TenantCard({ tenant, onEdit, onDelete, }: Props) {
+export default function TenantCard({ tenant, onEdit, }: Props) {
     return (
         <Card className="mb-3 shadow-sm">
             <Card.Body>
@@ -26,7 +25,6 @@ export default function TenantCard({ tenant, onEdit, onDelete, }: Props) {
                 </div>
                 <hr />
                 <Button size="sm" className="me-2" onClick={onEdit}>Edit</Button>
-                <Button size="sm" variant="danger" onClick={onDelete}>Delete</Button>
             </Card.Body>
         </Card>
     );

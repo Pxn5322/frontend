@@ -1,7 +1,7 @@
 "use client";
 
 import DashboardLayout from "@/components/DashboardLayout";
-import ProtectedRoute from "@/components/ProtectedRoute";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { TenantProvider } from "@/features/tenants/context/TenantProvider";
 import TenantList from "@/features/tenants/components/TenantList";
 import { Container } from "react-bootstrap";

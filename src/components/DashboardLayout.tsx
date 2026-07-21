@@ -1,24 +1,29 @@
 "use client";
 
-import { Container, Navbar, Nav, Button, Badge } from "react-bootstrap";
+import { Container, Navbar, Nav, Button, } from "react-bootstrap";
 import Link from "next/link";
-import { logout } from "@/services/authService";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
-import { LogOut, User, ShieldAlert } from "lucide-react";
+import { LogOut, User, } from "lucide-react";
+import RoleBadge from "./RoleBadge";
 
 interface Props {
     children: React.ReactNode;
 }
 
 export default function DashboardLayout({ children, }: Props) {
-    const router = useRouter();
     const pathname = usePathname();
-    const { platformUser } = useAuth();
+    const {
+        platformUser,
+        isEnterprise,
+        isAdmin,
+        isAgent,
+        isUser,
+        logoutUser,
+    } = useAuth();
 
     async function handleLogout() {
-        await logout();
-        router.replace("/login");
+        await logoutUser();
     }
 
     const isActive = (path: string) => pathname === path || pathname.startsWith(`${path}/`);
@@ -52,30 +57,25 @@ export default function DashboardLayout({ children, }: Props) {
                     <Navbar.Toggle aria-controls="dashboard-navbar-nav" className="border-0 shadow-none" />
                     <Navbar.Collapse id="dashboard-navbar-nav">
                         <Nav className="me-auto gap-1 my-2 my-lg-0">
-                            <Link
-                                href="/dashboard"
-                                className={`nav-link navLinkCustom ${pathname === "/dashboard" ? "navLinkActive" : ""}`}
-                            >
-                                Dashboard
-                            </Link>
-
-                            <Link
-                                href="/tickets"
-                                className={`nav-link navLinkCustom ${isActive("/tickets") ? "navLinkActive" : ""}`}
-                            >
-                                Tickets
-                            </Link>
-
-                            {platformUser?.role === "ADMIN" && (
+                            {(isAdmin || isAgent) && (
                                 <>
                                     <Link
-                                        href="/admin"
-                                        className={`nav-link navLinkCustom d-flex align-items-center gap-1.5 ${pathname === "/admin" ? "navLinkActive" : ""}`}
+                                        href="/dashboard"
+                                        className={`nav-link navLinkCustom ${pathname === "/dashboard" ? "navLinkActive" : ""}`}
                                     >
-                                        <ShieldAlert size={16} className="text-warning" />
-                                        <span>Admin Portal</span>
+                                        Dashboard
                                     </Link>
 
+                                    <Link
+                                        href="/tickets"
+                                        className={`nav-link navLinkCustom ${isActive("/tickets") ? "navLinkActive" : ""}`}
+                                    >
+                                        Tickets
+                                    </Link>
+                                </>
+                            )}
+                            {isAdmin && (
+                                <>
                                     <Link
                                         href="/admin/users"
                                         className={`nav-link navLinkCustom ${isActive("/admin/users") ? "navLinkActive" : ""}`}
@@ -98,18 +98,40 @@ export default function DashboardLayout({ children, }: Props) {
                                     </Link>
                                 </>
                             )}
+                            {isEnterprise && (
+                                <>
+                                    <Link
+                                        href="/enterprise/dashboard"
+                                        className={`nav-link navLinkCustom ${isActive("/enterprise/dashboard") ? "navLinkActive" : ""}`}
+                                    >
+                                        Dashboard
+                                    </Link>
+                                    <Link
+                                        href="/enterprise/tenants"
+                                        className={`nav-link navLinkCustom ${isActive("/enterprise/tenants") ? "navLinkActive" : ""}`}
+                                    >
+                                        Companies
+                                    </Link>
+                                    <Link
+                                        href="/enterprise/users"
+                                        className={`nav-link navLinkCustom ${isActive("/enterprise/users") ? "navLinkActive" : ""}`}
+                                    >
+                                        Users
+                                    </Link>
+                                </>
+                            )}
                         </Nav>
 
-                        <div className="d-flex align-items-center gap-3 mt-3 mt-lg-0 pt-3 pt-lg-0 border-top border-lg-0 border-secondary-subtle">
+                        <div className="d-flex align-items-center gap-3 mt-3 mt-lg-0 pt-3 pt-lg-0">
                             {platformUser && (
-                                <div className="userPill d-none d-sm-flex">
+                                <div className="userPill d-none d-md-flex">
                                     <User size={14} className="text-info" />
-                                    <span className="fw-medium">{platformUser.email?.split('@')[0] || 'Operator'}</span>
-                                    {platformUser.role === "ADMIN" && (
-                                        <Badge bg="warning" text="dark" className="ms-1 px-1.5 py-0.5" style={{ fontSize: "0.65rem" }}>
-                                            ADMIN
-                                        </Badge>
-                                    )}
+                                    <span className="fw-medium">{
+                                        platformUser?.name.length > 5
+                                            ? platformUser?.name.substring(0, 5) + "..."
+                                            : platformUser?.name
+                                    }</span>
+                                    <RoleBadge role={platformUser.role} />
                                 </div>
                             )}
 

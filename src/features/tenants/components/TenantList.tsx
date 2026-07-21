@@ -5,7 +5,6 @@ import { useState } from "react";
 import useTenants from "../hooks/useTenants";
 import TenantCard from "./TenantCard";
 import TenantModal from "./TenantModal";
-import DeleteTenantModal from "./DeleteTenantModal";
 import { Tenant } from "../types/tenant";
 import * as tenantService from "../services/tenantService";
 import toast from "react-hot-toast";
@@ -18,7 +17,6 @@ export default function TenantList() {
     } = useTenants();
 
     const [showModal, setShowModal] = useState(false);
-    const [showDelete, setShowDelete] = useState(false);
     const [selectedTenant, setSelectedTenant] = useState<Tenant | null>(null);
 
     function openCreate() {
@@ -29,11 +27,6 @@ export default function TenantList() {
     function openEdit(tenant: Tenant) {
         setSelectedTenant(tenant);
         setShowModal(true);
-    }
-
-    function openDelete(tenant: Tenant) {
-        setSelectedTenant(tenant);
-        setShowDelete(true);
     }
 
     async function save(companyName: string) {
@@ -51,20 +44,6 @@ export default function TenantList() {
         } catch (error) {
             console.error(error);
             toast.error("Unable to save tenant");
-        }
-    }
-
-    async function deleteTenant() {
-        if (!selectedTenant) return;
-
-        try {
-            await tenantService.deleteTenant(selectedTenant.id);
-            toast.success("Tenant deleted");
-            await refresh();
-            setShowDelete(false);
-        } catch (error) {
-            console.error(error);
-            toast.error("Unable to delete tenant");
         }
     }
 
@@ -90,7 +69,6 @@ export default function TenantList() {
                         key={tenant.id}
                         tenant={tenant}
                         onEdit={() => openEdit(tenant)}
-                        onDelete={() => openDelete(tenant)}
                     />
                 )))}
 
@@ -99,13 +77,6 @@ export default function TenantList() {
                 tenant={selectedTenant}
                 onClose={() => setShowModal(false)}
                 onSave={save}
-            />
-
-            <DeleteTenantModal
-                show={showDelete}
-                tenant={selectedTenant}
-                onClose={() => setShowDelete(false)}
-                onDelete={deleteTenant}
             />
         </>
     );
