@@ -1,6 +1,6 @@
 "use client";
 
-import ProtectedRoute from "@/components/ProtectedRoute";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import DashboardLayout from "@/components/DashboardLayout";
 import useTicketActions from "@/features/tickets/hooks/useTicketActions";

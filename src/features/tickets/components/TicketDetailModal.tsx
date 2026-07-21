@@ -137,7 +137,7 @@ export default function TicketDetailModal({ show, ticket, onClose }: Props) {
                             </div>)}
                     </Card.Body>
                 </Card>
-                <Button className="mb-3" onClick={handleGenerateAI} disabled={loadingAI}>
+                <Button className="mt-3" onClick={handleGenerateAI} disabled={loadingAI}>
                     {loadingAI
                         ? (<><Spinner size="sm" className="me-2" />Thinking...</>)
                         : "✨ Generate AI Analysis"

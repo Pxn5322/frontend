@@ -1,6 +1,6 @@
 "use client";
 
-import ProtectedRoute from "@/components/ProtectedRoute";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import DashboardLayout from "@/components/DashboardLayout";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import KnowledgeList from "@/features/knowledge/components/KnowledgeList";
@@ -17,7 +17,7 @@ export default function KnowledgePage() {
     return (
         <ProtectedRoute>
             <DashboardLayout>
-                <Container className="py-4">
+                <Container className="py-4" fluid>
                     <Row className="page-title text-center justify-content-center">
                         <Col lg={8}>
                             <h1 className="fw-bold display-5">Knowledge Base</h1>

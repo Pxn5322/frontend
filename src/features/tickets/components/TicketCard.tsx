@@ -9,12 +9,14 @@ import TicketModal from "./TicketModal";
 import useTicketActions from "@/features/tickets/hooks/useTicketActions";
 import TicketDetailModal from "./TicketDetailModal";
 import DeleteConfirmModal from "@/components/ui/DeleteConfirmModal";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface Props {
     ticket: Ticket;
 }
 
 export default function TicketCard({ ticket, }: Props) {
+    const { isAdmin, } = useAuth();
     const { update, remove, } = useTicketActions();
 
     const [showEdit, setShowEdit] = useState(false);
@@ -55,7 +57,9 @@ export default function TicketCard({ ticket, }: Props) {
                     <div className="mt-3">
                         <Button variant="outline-secondary" size="sm" className="me-2" onClick={() => setShowDetail(true)}>View</Button>
                         <Button variant="outline-primary" size="sm" className="me-2" onClick={() => setShowEdit(true)}>Edit</Button>
-                        <Button variant="outline-danger" size="sm" onClick={() => setShowDelete(true)}>Delete</Button>
+                        {isAdmin &&
+                            <Button variant="outline-danger" size="sm" onClick={() => setShowDelete(true)}>Delete</Button>
+                        }
                     </div>
                 </Card.Body>
             </Card>

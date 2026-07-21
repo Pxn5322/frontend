@@ -1,6 +1,6 @@
 "use client";
 
-import ProtectedRoute from "@/components/ProtectedRoute";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import DashboardLayout from "@/components/DashboardLayout";
 import KnowledgeDetails from "@/features/knowledge/components/KnowledgeDetails";
 

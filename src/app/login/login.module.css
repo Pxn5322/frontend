@@ -1,0 +1,112 @@
+.gatewayContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0;
+    background: linear-gradient(-45deg, #0f172a, #3730a3, #1e3a8a, #0f172a);
+    background-size: 400% 400%;
+    animation: AIBackgroundFlow 15s ease infinite;
+}
+
+.glassCard {
+    width: 440px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    /* Safari Support */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.glassCardProcessing {
+    composes: glassCard;
+    animation: CardPulse 2s infinite;
+}
+
+.logoWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 0 12px rgba(99, 102, 241, 0.4));
+    /* Luminous AI Glow */
+    animation: LogoEntrance 1s ease-out;
+}
+
+.customInput {
+    background: rgba(0, 0, 0, 0.2) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    transition: all 0.2s ease-in-out;
+    padding: 1rem !important;
+}
+
+.customInput:focus {
+    background: rgba(0, 0, 0, 0.3) !important;
+    color: #ffffff !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25) !important;
+}
+
+.inputError {
+    border-color: #ef4444 !important;
+}
+
+.submitButton {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+    border: none !important;
+    padding: 1rem !important;
+    transition: all 0.2s ease;
+}
+
+.submitButton:hover:not(:disabled) {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
+}
+
+.submitButton:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+@keyframes LogoEntrance {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes AIBackgroundFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes CardPulse {
+    0% {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    50% {
+        box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.3);
+    }
+
+    100% {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+}
