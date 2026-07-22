@@ -1,6 +1,6 @@
 "use client";
 
-import { useKnowledgeContext } from "@/contexts/KnowledgeContext";
+import { useKnowledgeContext } from "../context/KnowledgeContext";
 import Form from "react-bootstrap/Form";
 
 export default function SearchKnowledge() {

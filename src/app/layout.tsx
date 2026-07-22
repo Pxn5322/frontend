@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { TicketProvider } from "@/features/tickets/context/TicketContext";
-import { KnowledgeProvider } from "@/contexts/KnowledgeContext";
+import { KnowledgeProvider } from "@/features/knowledge/context/KnowledgeContext";
 import { Toaster } from "react-hot-toast";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";

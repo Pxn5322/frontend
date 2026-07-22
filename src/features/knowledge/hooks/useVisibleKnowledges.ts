@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import { useKnowledgeContext } from "@/contexts/KnowledgeContext";
+import { useKnowledgeContext } from "../context/KnowledgeContext";
 import { filterBySearch } from "../selectors/knowledgeSelectors";
-import { sortTickets } from "../utils/knowledgeSort";
+import { sortKnowledges } from "../utils/knowledgeSort";
 import { paginateKnowledge } from "../utils/knowledgePagination";
 
 export default function useVisibleKnowledges() {
@@ -26,7 +26,7 @@ export default function useVisibleKnowledges() {
         search
     );
 
-    const sortedKnowledges = sortTickets(
+    const sortedKnowledges = sortKnowledges(
         searchedKnowledges,
         sort
     );

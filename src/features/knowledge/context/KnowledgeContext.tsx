@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useReducer, ReactNode, } from "react";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { knowledgeReducer, initialKnowledgeState, } from "@/features/knowledge/reducers/knowledgeReducer";
 import * as knowledgeService from "@/features/knowledge/services/knowledgeService";
 import { Knowledge } from "@/features/knowledge/types/knowledge";

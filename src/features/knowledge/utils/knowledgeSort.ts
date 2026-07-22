@@ -4,7 +4,7 @@ export type SortOption =
     | "newest"
     | "oldest";
 
-export function sortTickets(knowledges: Knowledge[], option: SortOption): Ticket[] {
+export function sortKnowledges(knowledges: Knowledge[], option: SortOption): Knowledge[] {
     const sorted = [...knowledges];
 
     switch (option) {

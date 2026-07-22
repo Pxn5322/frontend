@@ -1,7 +1,7 @@
 "use client";
 
 import toast from "react-hot-toast";
-import { useKnowledgeContext, } from "@/contexts/KnowledgeContext";
+import { useKnowledgeContext } from "../context/KnowledgeContext";
 
 export default function useKnowledgeActions() {
     const {

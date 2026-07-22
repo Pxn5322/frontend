@@ -28,8 +28,6 @@ api.interceptors.response.use(
             } catch (e) {
                 console.error(e);
             }
-
-            //window.location.href = "/login"; // Redirect without React hooks
         }
 
         return Promise.reject(error);
