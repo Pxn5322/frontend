@@ -18,7 +18,6 @@ export default function DashboardLayout({ children, }: Props) {
         isEnterprise,
         isAdmin,
         isAgent,
-        isUser,
         logoutUser,
     } = useAuth();
 
@@ -113,8 +112,8 @@ export default function DashboardLayout({ children, }: Props) {
                                         Companies
                                     </Link>
                                     <Link
-                                        href="/enterprise/users"
-                                        className={`nav-link navLinkCustom ${isActive("/enterprise/users") ? "navLinkActive" : ""}`}
+                                        href="/enterprise/platform-users"
+                                        className={`nav-link navLinkCustom ${isActive("/enterprise/platform-users") ? "navLinkActive" : ""}`}
                                     >
                                         Users
                                     </Link>

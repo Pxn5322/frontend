@@ -1,19 +1,15 @@
-"use client";
-
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import DashboardLayout from "@/components/DashboardLayout";
-import UserTable from "@/features/users/components/UserTable";
-import { Container } from "react-bootstrap";
+import AdminUsersContent from "@/features/adminUsers/components/AdminUsersContent";
+import { AdminUserProvider } from "@/features/adminUsers/context/AdminUserProvider";
 
-export default function UsersPage() {
+export default function AdminUsersPage() {
     return (
         <ProtectedRoute>
             <DashboardLayout>
-                <Container className="py-4" fluid>
-                    <h2>User Management</h2>
-                    <hr />
-                    <UserTable />
-                </Container>
+                <AdminUserProvider>
+                    <AdminUsersContent />
+                </AdminUserProvider>
             </DashboardLayout>
         </ProtectedRoute>
     );

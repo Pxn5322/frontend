@@ -1,6 +1,5 @@
 import axios from "axios";
 import { auth } from "@/firebase/firebase";
-import { useRouter } from "next/navigation";
 import { logout } from "./authService";
 
 const api = axios.create({
@@ -23,11 +22,14 @@ api.interceptors.request.use(
 api.interceptors.response.use(
     response => response,
     async error => {
-        const router = useRouter();
-
         if (error.response?.status === 401) {
-            await logout();
-            router.replace("/login");
+            try {
+                await logout();
+            } catch (e) {
+                console.error(e);
+            }
+
+            //window.location.href = "/login"; // Redirect without React hooks
         }
 
         return Promise.reject(error);

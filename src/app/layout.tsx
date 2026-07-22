@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 import { CompanyProvider } from "@/features/tenants/context/CompanyProvider";
+import { PlatformUserProvider } from "@/features/platformUsers/context/PlatformUserProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,9 +34,11 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
           <TicketProvider>
             <KnowledgeProvider>
               <CompanyProvider>
-                <div className="appViewportContainer">
-                  {children}
-                </div>
+                <PlatformUserProvider>
+                  <div className="appViewportContainer">
+                    {children}
+                  </div>
+                </PlatformUserProvider>
               </CompanyProvider>
               <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
             </KnowledgeProvider>

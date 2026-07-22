@@ -46,6 +46,7 @@ export default function UserTable() {
             <Table striped hover bordered>
                 <thead>
                     <tr>
+                        <th>Username</th>
                         <th>Email</th>
                         <th>Role</th>
                         <th>Created</th>
@@ -55,6 +56,7 @@ export default function UserTable() {
                 <tbody>
                     {users.map(user => (
                         <tr key={user.id}>
+                            <td>{user.name}</td>
                             <td>{user.email}</td>
                             <td>
                                 <Form.Select
