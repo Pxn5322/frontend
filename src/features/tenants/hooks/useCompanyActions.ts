@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useCompanyContext } from "../context/CompanyProvider";
 import { CompanyRegistration } from "../services/companyService";
 import { Company } from "../types/company";
+import axios from "axios";
 
 export default function useCompanyActions() {
     const {
@@ -16,8 +17,10 @@ export default function useCompanyActions() {
         try {
             await addCompany(data);
             toast.success("Company created.");
-        } catch (error: any) {
-            toast.error(error.response?.data?.message ?? "Unable to create company.");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Unable to create company.");
+            }
         }
     }
 
@@ -25,8 +28,10 @@ export default function useCompanyActions() {
         try {
             await editCompany(id, data);
             toast.success("Company updated.");
-        } catch (error: any) {
-            toast.error(error.response?.data?.message ?? "Unable to update company.");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Unable to update company.");
+            }
         }
     }
 
@@ -34,8 +39,10 @@ export default function useCompanyActions() {
         try {
             await removeCompany(id);
             toast.success("Company deleted.");
-        } catch (error: any) {
-            toast.error(error.response?.data?.message ?? "Unable to delete company.");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Unable to delete company.");
+            }
         }
     }
 

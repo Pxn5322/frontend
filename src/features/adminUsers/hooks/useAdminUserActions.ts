@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useAdminUserContext } from "../context/AdminUserProvider";
 import { CreateUserRequest, } from "../services/adminUserService";
 import { AdminUser } from "../types/adminUser";
+import axios from "axios";
 
 export default function useAdminUserActions() {
     const {
@@ -17,8 +18,10 @@ export default function useAdminUserActions() {
         try {
             await addUser(data);
             toast.success("User created.");
-        } catch (error: any) {
-            toast.error(error.response?.data?.message ?? "Unable to create user.");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Unable to create user.");
+            }
         }
     }
 
@@ -26,8 +29,10 @@ export default function useAdminUserActions() {
         try {
             await editUser(id, data,);
             toast.success("User updated.");
-        } catch (error: any) {
-            toast.error(error.response?.data?.message ?? "Unable to update user.");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Unable to update user.");
+            }
         }
     }
 
@@ -35,8 +40,10 @@ export default function useAdminUserActions() {
         try {
             await resetPassword(id, newPassword,);
             toast.success("Password updated.");
-        } catch (error: any) {
-            toast.error(error.response?.data?.message ?? "Unable to update password.");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Unable to update password.");
+            }
         }
     }
 
@@ -44,8 +51,10 @@ export default function useAdminUserActions() {
         try {
             await removeUser(id);
             toast.success("User deleted.");
-        } catch (error: any) {
-            toast.error(error.response?.data?.message ?? "Unable to delete user.");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Unable to delete user.");
+            }
         }
     }
 

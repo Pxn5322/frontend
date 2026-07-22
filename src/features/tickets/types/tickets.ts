@@ -3,7 +3,7 @@ export interface Ticket {
     title: string;
     rawText: string;
     attachmentUrl?: string;
-    status: | "OPEN" | "IN_PROGRESS" | "RESOLVED";
+    status: | "OPEN" | "IN_PROGRESS" | "RESOLVED" | "CLOSED";
     priority: | "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
     sentiment: | "POSITIVE" | "NEUTRAL" | "NEGATIVE" | "ANGRY";
     tenantId: string;

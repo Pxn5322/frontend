@@ -1,6 +1,7 @@
 import { Ticket } from "../types/tickets";
+import { TicketDto } from "../types/ticketDto";
 
-export function mapTicket(ticket: any): Ticket {
+export function mapTicket(ticket: TicketDto): Ticket {
     return {
         id: ticket.id,
         title: ticket.title,
@@ -10,5 +11,6 @@ export function mapTicket(ticket: any): Ticket {
         status: ticket.status,
         tenantId: ticket.tenantId,
         createdAt: ticket.createdAt,
+        updatedAt: ticket.updatedAt,
     };
 }

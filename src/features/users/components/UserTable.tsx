@@ -6,7 +6,7 @@ import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { useState } from "react";
 import * as userService from "../services/userService";
 import toast from "react-hot-toast";
-import { Badge, Button, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useAuth } from "@/contexts/AuthContext";
 import ChangeRoleModal from "./ChangeRoleModal";
 
