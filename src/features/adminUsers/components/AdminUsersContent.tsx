@@ -23,7 +23,7 @@ export default function AdminUsersContent() {
                                 <h2>User Management</h2>
                                 <p className="text-muted">Manage Admins, Agents and Users</p>
                             </div>
-                            <Button onClick={() => setShowCreate(true)}>
+                            <Button className="mx-2" onClick={() => setShowCreate(true)}>
                                 + Create User
                             </Button>
                         </div>

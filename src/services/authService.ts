@@ -37,7 +37,6 @@ export async function logout() {
 
 export async function getCurrentProfile(): Promise<PlatformUser> {
     const response = await api.get("/api/auth/me");
-    console.log(response);
     return response.data;
 }
 

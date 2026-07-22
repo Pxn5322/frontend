@@ -21,7 +21,7 @@ export default function RoleGuard({ children, allowedRoles, }: Props) {
             return;
         }
 
-        if (!allowedRoles.includes(platformUser.role)) {
+        if (!(allowedRoles as string[]).includes(platformUser.role)) {
             router.replace("/dashboard");
         }
     }, [loading, platformUser, allowedRoles, router]);
@@ -36,7 +36,7 @@ export default function RoleGuard({ children, allowedRoles, }: Props) {
         return null;
     }
 
-    if (!allowedRoles.includes(platformUser.role)) {
+    if (!(allowedRoles as string[]).includes(platformUser.role)) {
         return null;
     }
 

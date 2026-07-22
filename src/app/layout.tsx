@@ -18,9 +18,6 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Enterprise Nexus',
   description: 'AI-Native Multi-Tenant Support Ticketing Platform',
-  icons: {
-    icon: "./favicon.svg",
-  },
 };
 
 export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
