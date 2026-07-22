@@ -10,6 +10,8 @@ export function mapTicket(ticket: TicketDto): Ticket {
         sentiment: ticket.sentiment,
         status: ticket.status,
         tenantId: ticket.tenantId,
+        createdById: ticket.createdById,
+        createdBy: ticket.createdBy,
         createdAt: ticket.createdAt,
         updatedAt: ticket.updatedAt,
     };

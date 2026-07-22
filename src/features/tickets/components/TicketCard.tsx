@@ -10,13 +10,14 @@ import useTicketActions from "@/features/tickets/hooks/useTicketActions";
 import TicketDetailModal from "./TicketDetailModal";
 import DeleteConfirmModal from "@/components/ui/DeleteConfirmModal";
 import { useAuth } from "@/contexts/AuthContext";
+import { canDeleteTicket, canEditTicket } from "../utils/ticketPermission";
 
 interface Props {
     ticket: Ticket;
 }
 
 export default function TicketCard({ ticket, }: Props) {
-    const { isAdmin, } = useAuth();
+    const { platformUser, } = useAuth();
     const { update, remove, } = useTicketActions();
 
     const [showEdit, setShowEdit] = useState(false);
@@ -52,14 +53,21 @@ export default function TicketCard({ ticket, }: Props) {
                     </p>
                     <div className="d-flex justify-content-between align-items-center">
                         <StatusBadge status={ticket.status} />
-                        <small>{new Date(ticket.createdAt).toLocaleString()}</small>
+                        <div>
+                            <small className="text-muted">Created By{" "}
+                                <strong>{ticket.createdBy?.name ?? "Unknown"}</strong>
+                            </small>{" "}
+                            <small>{new Date(ticket.createdAt).toLocaleString()}</small>
+                        </div>
                     </div>
                     <div className="mt-3">
                         <Button variant="outline-secondary" size="sm" className="me-2" onClick={() => setShowDetail(true)}>View</Button>
-                        <Button variant="outline-primary" size="sm" className="me-2" onClick={() => setShowEdit(true)}>Edit</Button>
-                        {isAdmin &&
+                        {platformUser && canEditTicket(platformUser, ticket) && (
+                            <Button variant="outline-primary" size="sm" className="me-2" onClick={() => setShowEdit(true)}>Edit</Button>
+                        )}
+                        {platformUser && canDeleteTicket(platformUser, ticket) && (
                             <Button variant="outline-danger" size="sm" onClick={() => setShowDelete(true)}>Delete</Button>
-                        }
+                        )}
                     </div>
                 </Card.Body>
             </Card>

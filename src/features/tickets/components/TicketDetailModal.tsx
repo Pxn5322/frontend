@@ -7,6 +7,7 @@ import { useState } from "react";
 import { ticketAnalysis } from "../services/aiService";
 import PriorityBadge from "./PriorityBadge";
 import StatusBadge from "./StatusBadge";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface Props {
     show: boolean;
@@ -15,6 +16,8 @@ interface Props {
 }
 
 export default function TicketDetailModal({ show, ticket, onClose }: Props) {
+    const { isUser } = useAuth();
+
     const [summary, setSummary] = useState("");
     const [suggestedReply, setSuggestedReply] = useState("");
     const [confidence, setConfidence] = useState<number>();
@@ -137,12 +140,12 @@ export default function TicketDetailModal({ show, ticket, onClose }: Props) {
                             </div>)}
                     </Card.Body>
                 </Card>
-                <Button className="mt-3" onClick={handleGenerateAI} disabled={loadingAI}>
+                {!isUser && <Button className="mt-3" onClick={handleGenerateAI} disabled={loadingAI}>
                     {loadingAI
                         ? (<><Spinner size="sm" className="me-2" />Thinking...</>)
                         : "✨ Generate AI Analysis"
                     }
-                </Button>
+                </Button>}
                 {analyzed && <AIAnalysisCard
                     loading={loadingAI}
                     analyzed={analyzed}

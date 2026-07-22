@@ -3,7 +3,7 @@ import { auth } from "@/firebase/firebase";
 import { logout } from "./authService";
 
 const api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000",
 });
 
 api.interceptors.request.use(

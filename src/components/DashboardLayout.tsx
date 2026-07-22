@@ -82,12 +82,12 @@ export default function DashboardLayout({ children, }: Props) {
                                         Users
                                     </Link>
 
-                                    <Link
+                                    {/* <Link
                                         href="/admin/tenants"
                                         className={`nav-link navLinkCustom ${isActive("/admin/tenants") ? "navLinkActive" : ""}`}
                                     >
                                         Tenants
-                                    </Link>
+                                    </Link> */}
 
                                     <Link
                                         href="/knowledge"

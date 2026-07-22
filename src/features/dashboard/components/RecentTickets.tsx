@@ -2,10 +2,10 @@
 
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
-import Link from "next/link";
 import { Ticket } from "@/features/tickets/types/tickets";
 import StatusBadge from "@/features/tickets/components/StatusBadge";
 import styles from "../../../app/dashboard/dashboard.module.css";
+import RecentTicketItem from "./RecentTicketItem";
 
 interface Props {
     tickets: Ticket[];
@@ -25,12 +25,7 @@ export default function RecentTickets({ tickets = [] }: Props) {
                     )
                     : (tickets.map(ticket => (
                         <ListGroup.Item key={ticket.id} className={styles.listItem}>
-                            <div className="d-flex justify-content-between align-items-center">
-                                <Link href={`/tickets/${ticket.id}`} className={styles.ticketLink}>
-                                    {ticket.title}
-                                </Link>
-                                <StatusBadge status={ticket.status} />
-                            </div>
+                            <RecentTicketItem ticket={ticket} />
                         </ListGroup.Item>
                     )))}
             </ListGroup>

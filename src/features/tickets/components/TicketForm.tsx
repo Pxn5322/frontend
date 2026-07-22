@@ -67,7 +67,7 @@ export default function TicketForm({ onSubmit, }: Props) {
                             setSelectedFile(file);
                         }} />
                 </Form.Group>
-                <Button type="submit" disabled={isSubmitting || uploading}>
+                <Button className="mt-3" type="submit" disabled={isSubmitting || uploading}>
                     {isSubmitting || uploading
                         ? <Spinner animation="border" size="sm" />
                         : "Create Ticket"

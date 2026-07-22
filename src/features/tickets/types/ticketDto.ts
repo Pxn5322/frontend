@@ -6,6 +6,8 @@ export interface TicketDto {
     sentiment: "POSITIVE" | "NEUTRAL" | "NEGATIVE" | "ANGRY";
     status: "OPEN" | "IN_PROGRESS" | "RESOLVED" | "CLOSED";
     tenantId: string;
+    createdById: string;
+    createdBy: { id: string; name: string; email: string; };
     attachmentUrl?: string;
     createdAt: string;
     updatedAt: string;
