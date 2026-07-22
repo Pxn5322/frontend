@@ -32,11 +32,9 @@ export default function UserTable() {
             await userService.updateRole(id, roles[id]);
             toast.success("Role updated");
             await refresh();
-        }
-        catch {
+        } catch {
             toast.error("Unable to update role");
-        }
-        finally {
+        } finally {
             setSavingId("");
         }
     }

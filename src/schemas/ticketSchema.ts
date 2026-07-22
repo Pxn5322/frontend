@@ -15,6 +15,7 @@ export const ticketSchema = z.object({
         "OPEN",
         "IN_PROGRESS",
         "RESOLVED",
+        "CLOSED",
     ]).optional(),
 
     priority: z.enum([
